@@ -13,8 +13,10 @@ conn = st.connection("snowflake")
 session = conn.session()
 
 # Get fruit options
-my_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col("FRUIT_NAME")).to_pandas()
-fruit_list = my_dataframe["FRUIT_NAME"].tolist()
+my_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col("FRUIT_NAME"),col('SEARCH_ON')).to_pandas()
+st.dataframe(data=my_dataframe,use_container_width=True)
+st.stop()
+#fruit_list = my_dataframe["FRUIT_NAME"].tolist()
 
 ingredients_list = st.multiselect(
     "Choose up to 5 ingredients:",
